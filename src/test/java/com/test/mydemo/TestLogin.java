@@ -6,8 +6,8 @@ import com.searchcar.http.HttpCallBack;
 import com.searchcar.http.MyHttpCallBack;
 import com.searchcar.http.OKHttpEngine;
 import com.searchcar.utils.MD5Utils;
-import org.testng.Assert;
-import org.testng.Reporter;
+import com.searchcar.utils.StringUtils;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -20,9 +20,6 @@ import java.util.Map;
  */
 public class TestLogin extends BaseConfig {
     private static final String salt = "NR8DeCTBfCzTvNGL";//伪加盐，只为混淆数据
-
-    static String phone = "18910901200";
-
     /**
      * 发起请求，走发送验证码接口
      * signature: md5加验证
@@ -30,8 +27,9 @@ public class TestLogin extends BaseConfig {
 
     SoftAssert softAssert = new SoftAssert();
 
-    @Test
-    public void getSms() {
+
+    @Test(description = "获取短信验证码", priority = 1, dataProvider = "getPhones", dataProviderClass = TestParam.class)
+    public void getSms(final String phone) {
         long timestamp = System.currentTimeMillis() / 1000;
         String signature = MD5Utils.MD5Encode(MD5Utils.MD5Encode(timestamp + phone, "utf8") + salt, "utf8");
         String url = "http://test-api.i-morefun.com/sms/v1/smsCode/" + phone;
@@ -43,14 +41,13 @@ public class TestLogin extends BaseConfig {
             @Override
             public void onSuccess(String str) {
                 System.out.println("succ:" + str);
-                Login();
+                Login(phone);
             }
 
             @Override
             public void onFail(String failMsg) {
                 super.onFail(failMsg);
                 System.out.println("failMsg:" + failMsg);
-                Assert.assertTrue(false);
             }
         });
     }
@@ -58,7 +55,7 @@ public class TestLogin extends BaseConfig {
     /**
      * 走登录接口
      */
-    public void Login() {
+    public void Login(String phone) {
 
         String url = "http://test-api.i-morefun.com/app_login/v1/login";
         Map<String, Object> params = new HashMap<String, Object>();
@@ -68,8 +65,7 @@ public class TestLogin extends BaseConfig {
         new OKHttpEngine().put(url, params, null, new MyHttpCallBack<TestBean>() {
             public void onSucc(TestBean result) {
                 System.out.println("onSucc:" + result);
-                softAssert.assertTrue(false);//  软断言
-//                Assert.assertTrue(result.token != null && !"".equals(result.token));
+                softAssert.assertTrue(!StringUtils.isEmpty(result.token));//  软断言
             }
 
             @Override
