@@ -118,24 +118,37 @@ public class OKHttpEngine {
      * @param callBack
      */
     private void clientCall(Request request, final HttpCallBack callBack) {
+//        try {
+//            callBack.onStart();
+//            client.newCall(request).enqueue(new Callback() {
+//                public void onFailure(Call call, IOException e) {
+//                    callBack.onFail(e.getMessage());
+//                    callBack.onFinish();
+//                }
+//
+//                public void onResponse(Call call, Response response) throws IOException {
+//                    String json = response.body().string();
+//                    callBack.onSuccess(json);
+//                }
+//            });
+//        } catch (Exception e) {
+//            callBack.onFail(e.getMessage());
+//        } finally {
+//            callBack.onFinish();
+//        }
+
+
         try {
             callBack.onStart();
-            client.newCall(request).enqueue(new Callback() {
-                public void onFailure(Call call, IOException e) {
-                    callBack.onFail(e.getMessage());
-                    callBack.onFinish();
-                }
-
-                public void onResponse(Call call, Response response) throws IOException {
-                    String json = response.body().string();
-                    callBack.onSuccess(json);
-                }
-            });
+            Response response = client.newCall(request).execute();
+            String json = response.body().string();
+            callBack.onSuccess(json);
         } catch (Exception e) {
             callBack.onFail(e.getMessage());
         } finally {
             callBack.onFinish();
         }
+
     }
 
 
