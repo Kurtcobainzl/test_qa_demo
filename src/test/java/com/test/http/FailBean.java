@@ -1,4 +1,4 @@
-package com.searchcar.http;
+package com.test.http;
 
 import java.io.Serializable;
 

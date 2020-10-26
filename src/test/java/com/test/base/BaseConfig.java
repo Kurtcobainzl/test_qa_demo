@@ -1,4 +1,4 @@
-package com.searchcar.base;
+package com.test.base;
 
 import java.util.HashMap;
 import java.util.Map;

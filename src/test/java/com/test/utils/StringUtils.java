@@ -1,4 +1,4 @@
-package com.searchcar.utils;
+package com.test.utils;
 
 public class StringUtils {
 

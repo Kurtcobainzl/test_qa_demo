@@ -1,9 +1,8 @@
-package com.searchcar.http;
+package com.test.http;
 
 import com.sun.istack.internal.NotNull;
 import okhttp3.*;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
