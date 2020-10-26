@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.nio.charset.Charset;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -146,13 +147,20 @@ public class ExcelUtil {
 
 
     public String Date2Str(Date date, String format) {
-        // TODO: 2020/10/26
-        // Date -> LocalDateTime -> String
-//        DateTimeFormatter df = DateTimeFormatter.ofPattern(format);
-//        ZoneId zone = ZoneId.systemDefault();
-//        LocalDateTime localDateTime = LocalDateTime.ofInstant(date.toInstant(),zone);
-//        return df.format(localDateTime);
-        return "todo";
+        String seconds = "" + date.getTime();
+        if (StringUtils.isEmpty(seconds)) {
+            return "";
+        }
+        if (format == null || format.isEmpty()) {
+            format = "yyyy-MM-dd HH:mm:ss";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        try {
+            return sdf.format(new Date(Long.valueOf(seconds)));
+
+        } catch (Exception e) {
+            return seconds;
+        }
     }
 }
 
