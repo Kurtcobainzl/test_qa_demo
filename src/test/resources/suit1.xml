@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="suite1">
+<suite name="suite1" thread-count="10" parallel="tests" annotations="JDK">
+    <parameter name="demo_1" value="kurt"/>
+    <parameter name="demo_2" value="16619872000"/>
+
     <test name="test1">
+        <parameter name="canUse" value="true"/>
         <classes>
             <class name="com.test.test_case.TestPhoneAndName"></class>
         </classes>
