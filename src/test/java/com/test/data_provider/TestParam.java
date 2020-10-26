@@ -26,7 +26,7 @@ public class TestParam {
     @DataProvider
     public static Object[][] getPickUpInfos() throws Exception {
 
-        String[][] args = new ExcelUtil("demo02.xlsx", "case001").readExcel();
+        String[][] args = new ExcelUtil("demo03.csv", "case001").readExcel();
         System.out.println(args.length);
         for (String[] a : args) {
             for (String b : a) {
