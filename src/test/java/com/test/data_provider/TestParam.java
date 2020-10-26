@@ -43,7 +43,7 @@ public class TestParam {
     public static void main(String[] arg1s) {
         String[][] args = new String[0][];
         try {
-            args = new ExcelUtil("demo01.xls", "case001").readExcel();
+            args = new ExcelUtil("demo03.csv", "case001").readExcel();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,14 +1,17 @@
 package com.test.utils;
 
+import com.csvreader.CsvReader;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import sun.rmi.runtime.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.charset.Charset;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class ExcelUtil {
@@ -32,12 +35,11 @@ public class ExcelUtil {
         if (!file.exists()) {
             throw new Exception("文件不存在");
         }
-        System.out.println(sourceFile);
         String[] strs = sourceFile.split("\\.");
-        System.out.println("strs:" + strs.length);
-        for (String st : strs) {
-            System.out.println(st);
+        if (strs[strs.length - 1].equals("csv")) {
+            return readCSV(sourceFile);
         }
+
         if (strs[strs.length - 1].equals("xls")) {
             FileInputStream is = new FileInputStream(sourceFile);
             wb = new HSSFWorkbook(is);
@@ -48,7 +50,7 @@ public class ExcelUtil {
         Sheet sheet = wb.getSheet(caseName);
 
 
-        String[][] args = new String[sheet.getLastRowNum() ][sheet.getRow(0).getLastCellNum()];
+        String[][] args = new String[sheet.getLastRowNum()][sheet.getRow(0).getLastCellNum()];
         // 循环row，如果第一行是字段，则 numRow = 1
         for (int numRow = 1; numRow <= sheet.getLastRowNum(); numRow++) {
             Row row = sheet.getRow(numRow);
@@ -68,14 +70,42 @@ public class ExcelUtil {
         return args;
     }
 
-//        for (int i = 0; i < sheet.getLastRowNum(); i++) {
-//            for (int j = 0; j < sheet.getRow(i).getRowNum(); j++) {
-//                System.out.println("getRow：" + sheet.getRow(i).getCell(j).getV());
-//
-//            }
-//        }
-//        System.out.println("sheet.getLastRowNum：" + sheet.getLastRowNum());
-//        System.out.println("getRow：" + sheet.getRow(0).getCell(0).getStringCellValue());
+
+    public static String[][] readCSV(String filePath) {
+        return readCSV(filePath, "UTF-8");
+
+    }
+
+    public static String[][] readCSV(String filePath, String charSet) {
+        CsvReader reader = null;
+        List<String[]> dataList = new ArrayList<String[]>();
+        try {
+            //如果生产文件乱码，windows下用gbk，linux用UTF-8
+            reader = new CsvReader(filePath, ',', Charset.forName(charSet));
+            // 读取表头
+            reader.readHeaders();
+//            String[] headArray = reader.getHeaders();//获取标题
+            // 逐条读取记录，直至读完
+            while (reader.readRecord()) {
+                dataList.add(reader.getValues());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (null != reader) {
+                reader.close();
+            }
+        }
+
+        String[][] strings = new String[dataList.size()][dataList.get(0).length];
+        for (int i = 0; i < dataList.size(); i++) {
+            for (int j = 0; j < dataList.get(i).length; j++) {
+                strings[i][j] = dataList.get(i)[j];
+            }
+        }
+
+        return strings;
+    }
 
 
     public static final int CELL_TYPE_NUMERIC = 0;
@@ -113,6 +143,7 @@ public class ExcelUtil {
         }
         return val;
     }
+
 
     public String Date2Str(Date date, String format) {
         // TODO: 2020/10/26
