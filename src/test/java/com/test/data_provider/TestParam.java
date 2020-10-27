@@ -3,6 +3,7 @@ package com.test.data_provider;
 
 import com.test.bean.Teacher;
 import com.test.db.MySqlDB;
+import com.test.db.SqlHelper;
 import com.test.utils.ExcelUtil;
 import com.test.utils.PropertiesUtil;
 import org.testng.annotations.DataProvider;
@@ -52,8 +53,15 @@ public class TestParam {
 
 
         //测试mysql数据库
+        System.out.println("查询所有teacher    开始（1）");
+        new SqlHelper().getAllTeachers();
+
+        /**
+         * 上下两端执行结果完全一致。
+         */
+
+//        System.out.println("查询所有teacher    开始（2）");
 //        ArrayList<Teacher> infos = new ArrayList<Teacher>();
-//
 //        MySqlDB.getConn();
 //        ResultSet resultSet = MySqlDB.getResultSet("SELECT * FROM  Teacher");
 //        while (resultSet.next()) {
@@ -68,10 +76,12 @@ public class TestParam {
 //        MySqlDB.close();  //先取出值，后关闭sql.否则会抛出异常。
 
 
+//        System.out.println("测试PropertiesUtil    开始");
         //测试PropertiesUtil类
 //        String string = PropertiesUtil.getValue("spring.datasource.username");
+//        System.out.println(string);
 
-
+//        System.out.println("测试csv文件读取    开始");
         //测试 csv文件读取
 //        String[][] args = null;
 //        try {
