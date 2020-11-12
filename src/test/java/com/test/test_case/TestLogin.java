@@ -32,8 +32,6 @@ public class TestLogin extends BaseConfig {
     @Test(description = "获取短信验证码", priority = 1, dataProvider = "getPhones", dataProviderClass = TestParam.class)
     public void getSms(final String phone) throws Exception {
 
-
-
         long timestamp = System.currentTimeMillis() / 1000;
         String signature = MD5Utils.MD5Encode(MD5Utils.MD5Encode(timestamp + phone, "utf8") + salt, "utf8");
         String url = "http://test-api.i-morefun.com/sms/v1/smsCode/" + phone;

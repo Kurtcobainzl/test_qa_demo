@@ -3,12 +3,9 @@ package com.selenium;
 import com.selenium.util.DriverProvider;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +14,15 @@ public class DriverTest {
     @Test
     public void runFireFoxDriver() throws IOException, InterruptedException {
         WebDriver driver = DriverProvider.getFireDriver();
+        driver.get("https://blog.csdn.net/weixin_30312557/article/details/99571342");
+        Thread.sleep(3000);
+        driver.get("https://www.baidu.com/");
+        Thread.sleep(3000);
+        driver.navigate().back();  //后退键
+        Thread.sleep(3000);
+        driver.navigate().forward();//前进键
+        Thread.sleep(3000);
+        driver.navigate().refresh();//刷新键
     }
 
 
@@ -32,14 +38,19 @@ public class DriverTest {
         driver.findElement(By.id("txtUserName2")).sendKeys("05301117");
         driver.findElement(By.id("txtPassword2")).sendKeys("zhanglin0514");
         driver.findElement(By.id("btnSetNoPatt")).click();
-        driver.findElement(By.linkText("课程资源")).click();
+        driver.findElement(By.linkText("学习中心")).click();
         windowHandles = driver.getWindowHandles();//获取当前handle集合，即将跳转。
-        driver.findElement(By.id("0fc5e5a3-59eb-42ea-9508-1b993f196383")).click();
+        System.out.println(driver.getWindowHandle() + "windowHandles====:" + driver.getWindowHandles().size());
+        driver.findElement(By.linkText("立即学习")).click();//return1
+        Thread.sleep(2000);
         driver.switchTo().window(DriverProvider.getDiff(windowHandles, driver));//把句柄切到心打开到页面
+        System.out.println(driver.getWindowHandle() + "windowHandles====:" + driver.getWindowHandles().size());
         windowHandles = driver.getWindowHandles();
-        List<WebElement> elements = driver.findElements(By.cssSelector(".font-size-14.hand.text-normal"));
-        elements.get(0).click();
+        //ruturn 2
+        driver.findElement(By.xpath("/html/body/div[2]/div[10]/div/form/div[2]/div[2]/div[4]/div/div[1]/div/table/tbody/tr[2]/td[2]")).click();
+        Thread.sleep(2000);
         driver.switchTo().window(DriverProvider.getDiff(windowHandles, driver));
+        System.out.println(driver.getWindowHandle() + "windowHandles====:" + driver.getWindowHandles().size());
         driver.findElement(By.id("btnStartStudy")).click();
     }
 
