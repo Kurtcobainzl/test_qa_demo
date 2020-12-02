@@ -7,20 +7,27 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-@Listeners({TestReport.class})
+//@Listeners({TestReport.class})
 public class TestPhoneAndName {
+    TestPhoneAndName(){
+        System.out.print("123123");
+    }
 
-    //    @Test
-//    @Parameters({"demo_1", "demo_2"})
-    @Test(description = "获取xls文件中的数据并打印", priority = 1, dataProvider = "getPickUpInfos", dataProviderClass = TestParam.class)
-    public void printPhoneAndName(String name, String phone) throws Exception {
-        System.out.println(name + "\t联系方式\t" + phone);
-        try {
-            Long.parseLong(phone);
-            new TestLogin().getSms(phone);
-        } catch (Exception e) {
-            Assert.assertTrue(false);
-        }
+    static {
+        System.out.println("sdf jskdf ");
+    }
+
+//    @Test(description = "获取xls文件中的数据并打印", priority = 1, dataProvider = "getPickUpInfos", dataProviderClass = TestParam.class)
+
+@Test
+public void printPhoneAndName(String name, String phone) throws Exception {
+//        System.out.println(name + "\t联系方式\t" + phone);
+//        try {
+//            Long.parseLong(phone);
+//            new TestLogin().getSms(phone);
+//        } catch (Exception e) {
+//            Assert.assertTrue(false);
+//        }
 
     }
 }

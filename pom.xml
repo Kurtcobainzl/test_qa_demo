@@ -55,6 +55,7 @@
             <version>6.9.10</version>
             <scope>test</scope>
         </dependency>
+
         <!--testng报告-->
         <dependency>
             <groupId>org.uncommons</groupId>
