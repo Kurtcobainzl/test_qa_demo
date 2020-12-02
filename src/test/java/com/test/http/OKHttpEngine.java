@@ -14,7 +14,7 @@ public class OKHttpEngine {
 
     private static long TIMEOUT = 30L;  //接口请求超时时间
     OkHttpClient client;
-
+//构造方法 类在创建时第一个被执行
     public OKHttpEngine() {
         client = new OkHttpClient.Builder().readTimeout(TIMEOUT, TimeUnit.SECONDS).build();
         client.dispatcher().setMaxRequestsPerHost(10);
@@ -139,7 +139,7 @@ public class OKHttpEngine {
 
         try {
             callBack.onStart();
-            Response response = client.newCall(request).execute();
+            Response response = client.newCall(request).execute();//发起请求
             String json = response.body().string();
             callBack.onSuccess(json);
         } catch (Exception e) {

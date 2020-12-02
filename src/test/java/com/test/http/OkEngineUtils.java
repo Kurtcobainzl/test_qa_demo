@@ -14,7 +14,7 @@ public class OkEngineUtils {
      * @param header
      * @return 获取网络请求的header(以okhttp的Headers格式)
      */
-    public static Headers getHeaders(Map<String, String> header) {
+    public static Headers  getHeaders(Map<String, String> header) {
         Headers.Builder headerB = new Headers.Builder();
         if (header != null && header.size() != 0) {
             for (String key : header.keySet()) {
@@ -39,7 +39,7 @@ public class OkEngineUtils {
      * @param params
      * @return get请求中，将参数拼接到url后面
      */
-    public static String getUrlWithParams(String url, Map<String, Object> params) {
+    public static String  getUrlWithParams(String url, Map<String, Object> params) {
         if (params == null || params.size() <= 0) {
             return url;
         }

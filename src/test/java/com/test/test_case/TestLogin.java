@@ -40,6 +40,7 @@ public class TestLogin extends BaseConfig {
         params.put("signature", signature);
 
         new OKHttpEngine().get(url, params, getCommonHeaders(), new HttpCallBack() {//使用默认的回调，返回string  自行处理
+
             @Override
             public void onSuccess(String str) {
                 System.out.println("succ:" + str);
