@@ -28,12 +28,18 @@ public class CcreateOpporityTest {
     // 查看机会详情
     public void opportunityDetail(final String opportunityId) {
         String opportunityDetail = InterRequest.opportunityDetail(opportunityId );
-        opportuintyFollow(opportunityId);
+        if (opportunityDetail !=""){
+            opportuintyFollow(opportunityId);
+        }
+        System.out.println("查看机会详情失败");
     }
 
     // 机会跟进
     public void opportuintyFollow(final String opportunityId) {
-        System.out.println("机会跟进");
+        String followId = InterRequest.getopportuintyFollow(opportunityId);
+        if (followId !=""){
+            System.out.println("机会跟进成功");
+        }
     }
 
     //  机会编辑

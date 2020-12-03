@@ -72,7 +72,7 @@ public class InterRequest {
     }
 
     //    机会跟进
-    public void getopportuintyFollow(final String opportunityId) {
+    public static String getopportuintyFollow(final String opportunityId) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("content", "这是接口测试内容");
         jsonObject.addProperty("followTime", BaseTime.DAY);
@@ -82,6 +82,10 @@ public class InterRequest {
         jsonObject.addProperty("reachedCode", "1");
         jsonObject.addProperty("resultCode", "04");
         String getfollow = new OkHttpEngin().postJson(BaseUrl.opportunityFollow + opportunityId + "/follow", jsonObject.toString(), getCommonHeaders());
-//        return getFollow;
+        JsonObject jsonObj = new JsonParser().parse(getfollow).getAsJsonObject();
+        JsonObject data = jsonObject.get("jsonObj").getAsJsonObject();
+        User user  = new Gson().fromJson(data,User.class);
+        String getId = user.getId();
+        return getId;
     }
 }
