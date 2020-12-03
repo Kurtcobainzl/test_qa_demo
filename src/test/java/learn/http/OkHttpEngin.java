@@ -1,7 +1,6 @@
 package learn.http;
 
 import com.sun.istack.internal.NotNull;
-import wss.http.HttpCallBack;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -35,9 +34,8 @@ public class OkHttpEngin {
      * @param url      网络请求地址
      * @param params   put请求body参数
      * @param headers  put请求header参数
-     * @param callBack 网络请求回调
      */
-    public void put(String url,Map<String ,Object> params,Map<String,String > headers,final HttpCallBack callBack){
+    public void put(String url,Map<String ,Object> params,Map<String,String > headers){
         FormBody.Builder builder = OkEnginUtils.getFormBodyBuilder(params);
         RequestBody formBody = builder.build();
         Request request = new Request.Builder().headers(OkEnginUtils.getHeaders(headers)).url(url).put(formBody).build();
@@ -49,42 +47,35 @@ public class OkHttpEngin {
      * @param  url             网络请求地址
      * @param  jsonContent     json格式的字符串
      * @param headers           put请求header参数
-     * @param callBack          网络请求回调
      */
 
-    public void putJson(String url, @NotNull String jsonContent, Map<String ,String> headers, final HttpCallBack callBack){
+    public void putJson(String url, @NotNull String jsonContent, Map<String ,String> headers){
         RequestBody body = FormBody.create(MediaType.parse("application/json; charset=utf-8"),jsonContent);
         Request request = new Request.Builder().headers(OkEnginUtils.getHeaders(headers)).url(url).put(body).build();
         clientCall(request);
     }
     /**
      * post请求 json请求方式
-     * @param url
      * @param
+     * @param url
+     * @return
      */
-    public void  postJson(String url, String jsonContent,Map<String,String > headers,final HttpCallBack callBack) {
+    public String postJson(String url, String jsonContent, Map<String,String > headers) {
         RequestBody formBody =  FormBody.create(MediaType.parse("application/json; charset=utf-8"),jsonContent);
         Request request = new Request.Builder().headers(OkEnginUtils.getHeaders(headers)).url(url).post(formBody).build();
-        clientCall(request);
+        return clientCall(request);
     }
 
-//    }
 
     public String clientCall(Request request){
         try{
-//            callBack.onStart();
             Response response = client.newCall(request).execute();
             String json = response.body().string();
             return json;
-//            callBack.onSuccess(json);
         } catch (IOException e) {
             e.printStackTrace();
-//            callBack.onFail(e.getMessage());
-        }finally {
-//            callBack.onFinish();
-
         }
-return "";
+        return "";
     }
 
 }
