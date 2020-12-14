@@ -38,7 +38,8 @@ public class DriverTest {
         driver.findElement(By.id("txtUserName2")).sendKeys("05301117");
         driver.findElement(By.id("txtPassword2")).sendKeys("zhanglin0514");
         driver.findElement(By.id("btnSetNoPatt")).click();
-        driver.findElement(By.linkText("学习中心")).click();
+        Thread.sleep(5000);
+        driver.findElement(By.xpath("/html/body/div[2]/div[9]/div/div[2]/div/ul/li[6]")).click();
         windowHandles = driver.getWindowHandles();//获取当前handle集合，即将跳转。
         System.out.println(driver.getWindowHandle() + "windowHandles====:" + driver.getWindowHandles().size());
         driver.findElement(By.linkText("立即学习")).click();//return1
