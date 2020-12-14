@@ -3,8 +3,9 @@ package learn.bean;
 public class User {
 
     private String id;
-    private String employeeId;
-    private int age;
+    private String filedName;
+    private String requiredStatusName;
+    private String agreementId;
     private String address;
     private CustomeInfo customeInfo;
 
@@ -16,12 +17,28 @@ public class User {
         this.customeInfo = customeInfo;
     }
 
-    public int getAge() {
-        return age;
+    public String getrequiredStatusName() {
+        return requiredStatusName;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setrequiredStatusName(String activeStatusName) {
+        this.requiredStatusName = activeStatusName;
+    }
+
+    public String getFiledName() {
+        return filedName;
+    }
+
+    public void setFiledName(String filedName) {
+        this.filedName = filedName;
+    }
+
+    public String getAgreementId() {
+        return agreementId;
+    }
+
+    public void setAgreementId(String agreementId) {
+        this.agreementId = agreementId;
     }
 
     public String getAddress() {
@@ -42,15 +59,16 @@ public class User {
 
 
     public String getEmployeeId() {
-        return employeeId;
+        return filedName;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
-                ", employeeId='" + employeeId + '\'' +
-                ", age=" + age +
+                ", filedName='" + filedName + '\'' +
+                ", activeStatusName=" + requiredStatusName +
+                ", agreementId=" + agreementId +
                 ", address='" + address + '\'' +
                 ", customeInfo=" + customeInfo +
                 '}';

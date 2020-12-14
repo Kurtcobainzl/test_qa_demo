@@ -3,7 +3,10 @@ package learn.http;
 import com.sun.istack.internal.NotNull;
 import okhttp3.*;
 
+import javax.net.ssl.*;
 import java.io.IOException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -12,7 +15,10 @@ public class OkHttpEngin {
     OkHttpClient client;
 
     public  OkHttpEngin(){
-        client = new OkHttpClient.Builder().readTimeout(TIMEOUT, TimeUnit.SECONDS).build();
+        client = new OkHttpClient.Builder()
+        .sslSocketFactory(createSSLSocketFactory())
+        .hostnameVerifier(new TrustAllHostnameVerifier())
+.readTimeout(TIMEOUT, TimeUnit.SECONDS).build();
         client.dispatcher().setMaxRequests(10);//每个端口设置最大请求数
 
     }
@@ -23,7 +29,8 @@ public class OkHttpEngin {
  * @param headers    header参数
  */
     public String get(String url, Map<String ,Object> param, Map<String,String> headers){
-        Request request = new Request.Builder().headers(OkEnginUtils.getHeaders(headers)).url(OkEnginUtils.getUrlWithParams(url,param)).get().build();
+        String myUrl=OkEnginUtils.getUrlWithParams(url,param);
+        Request request = new Request.Builder().headers(OkEnginUtils.getHeaders(headers)).url(myUrl).get().build();
        String result= clientCall(request);
        return result;
     }
@@ -51,6 +58,7 @@ public class OkHttpEngin {
 
     public void putJson(String url, @NotNull String jsonContent, Map<String ,String> headers){
         RequestBody body = FormBody.create(MediaType.parse("application/json; charset=utf-8"),jsonContent);
+
         Request request = new Request.Builder().headers(OkEnginUtils.getHeaders(headers)).url(url).put(body).build();
         clientCall(request);
     }
@@ -61,6 +69,7 @@ public class OkHttpEngin {
      * @return
      */
     public String postJson(String url, String jsonContent, Map<String,String > headers) {
+
         RequestBody formBody =  FormBody.create(MediaType.parse("application/json; charset=utf-8"),jsonContent);
         Request request = new Request.Builder().headers(OkEnginUtils.getHeaders(headers)).url(url).post(formBody).build();
         return clientCall(request);
@@ -77,5 +86,66 @@ public class OkHttpEngin {
         }
         return "";
     }
+
+
+
+    private static SSLSocketFactory createSSLSocketFactory() {
+        SSLSocketFactory ssfFactory = null;
+
+        try {
+            SSLContext sc = SSLContext.getInstance("TLS");
+            sc.init(null,  new TrustManager[] { new TrustAllCerts() }, new java.security.SecureRandom());
+
+            ssfFactory = sc.getSocketFactory();
+        } catch (Exception e) {
+        }
+
+        return ssfFactory;
+    }
+
+
+
+
+
+
+    private static class TrustAllHostnameVerifier implements HostnameVerifier {
+        @Override
+        public boolean verify(String hostname, SSLSession session) {
+            return true;
+        }
+    }
+
+
+
+    private static class TrustAllCerts implements X509TrustManager {
+        @Override
+        public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+
+        }
+
+        @Override
+        public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+
+        }
+
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[0];
+        }
+//        @Override
+//        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+//
+//        @Override
+//        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+//
+//        @Override
+//        public X509Certificate[] getAcceptedIssuers() {return new X509Certificate[0];}
+    }
+
+
+
+
+
+
 
 }
