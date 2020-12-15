@@ -67,14 +67,14 @@ public class User {
         return "User{" +
                 "id='" + id + '\'' +
                 ", filedName='" + filedName + '\'' +
-                ", activeStatusName=" + requiredStatusName +
-                ", agreementId=" + agreementId +
+                ", requiredStatusName='" + requiredStatusName + '\'' +
+                ", agreementId='" + agreementId + '\'' +
                 ", address='" + address + '\'' +
                 ", customeInfo=" + customeInfo +
                 '}';
     }
 
-  public   class CustomeInfo{
+    public   class CustomeInfo{
         public String  customerId;
 
         @Override

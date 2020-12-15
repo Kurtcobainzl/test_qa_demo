@@ -22,18 +22,22 @@ public class VisitControlleer {
         ArrayList<User> user = InterRequest.visitIsTrue();
         for(User i : user){
             ArrayList mustWrite = new ArrayList();
-            System.out.println(i); // 下面打印出来的数据就是
-//            System.out.println(i.getrequiredStatusName());
-//            System.out.println(i.getrequiredStatusName() instanceof Object);  //true
-
-            if (i.getrequiredStatusName() == "是"){ //是个对象 不能判断为字符串 .toString不好使
-                System.out.println("11"+i.getFiledName());
-
+            /**
+             * ==
+             * equals
+             */
+            if ("是".equals(i.getrequiredStatusName())){ //判断字符串 值是否相等
+                System.out.println(i.getFiledName());
+//                addVisit();
             }
         }
 
     }
     //    新建客流
+    public void addVisit(){
+        User.CustomeInfo user = InterRequest.addVisit();
+
+    }
 //    分配客流
 
 //    获取展厅客流列表

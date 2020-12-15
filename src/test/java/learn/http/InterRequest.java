@@ -120,6 +120,8 @@ public class InterRequest {
         jsonObject.addProperty("lastName","wang");
         jsonObject.addProperty("reasonsCode","1");
         jsonObject.addProperty("genderCode","M");
+        jsonObject.addProperty("客流备注1","1客流备注1");
+        jsonObject.addProperty("客流备注2","客流备注2");
         String getAddata = new OkHttpEngin().postJson(BaseUrl.addVisitUrl,jsonObject.toString(),getCommonHeaders());
         JsonObject jsonObj = new JsonParser().parse(getAddata).getAsJsonObject();
         System.out.println(getAddata);

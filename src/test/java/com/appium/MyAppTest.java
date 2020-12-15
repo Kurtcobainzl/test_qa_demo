@@ -20,7 +20,7 @@ public class MyAppTest {
      */
     public static AppiumDriver driver;
 
-    @BeforeClass
+    //@BeforeClass
     public void setUp() throws IOException, InterruptedException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("deviceName", "Android Emulator");
@@ -39,5 +39,16 @@ public class MyAppTest {
 
     @Test
     public void myTest() {
+
+        String a="123";
+        String b="123";
+        String c=new String("123");
+        String d=new String("123");
+
+       System.out.println(a==b);
+        System.out.println(a.equals(b));
+        System.out.println(c==d);
+       System.out.println(a.equals(c));
+
     }
 }
