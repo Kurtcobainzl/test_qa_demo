@@ -4,6 +4,8 @@ echo hello
 str1=你好
 str2=world
 
+pwd
+
 #字符串拼接
 
 #val=$str1$str2              #这种写法不能有空格隔开。

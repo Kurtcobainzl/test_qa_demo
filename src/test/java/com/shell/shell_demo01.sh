@@ -4,11 +4,15 @@
 
 my_name="kurt"  #不能加空格，加了空格就报错了...
 #echo $my_name  #kurt
-mkdir /Users/kurt/Downloads/comdemoqa/src/test/java/com/shell/A
+#mkdir /Users/kurt/Downloads/comdemoqa/src/test/java/com/shell/A
 
 i=10
 j=12
 k=$(($i+$j))
+
+
+
+printf "%s \n"   hellooooooooooooooohellooooooooooooooo
 #echo $i+$j   #10+12
 #echo $k     #22
 #echo today is `date "+%Y-%m-%d"`
