@@ -3,9 +3,14 @@ package com.selenium;
 import com.selenium.util.DriverProvider;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +28,10 @@ public class DriverTest {
         driver.navigate().forward();//前进键
         Thread.sleep(3000);
         driver.navigate().refresh();//刷新键
+
+
+
+
     }
 
 

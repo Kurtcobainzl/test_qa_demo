@@ -12,6 +12,7 @@ import com.test.utils.StringUtils;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 

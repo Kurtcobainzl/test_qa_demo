@@ -1,7 +1,9 @@
 package com.appium;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -34,6 +36,7 @@ public class MyAppTest {
         capabilities.setCapability("app", new File(".").getCanonicalPath() + "/src/test/resources/dev-6.8.4_release.apk");
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
         Thread.sleep(2000);
+        TouchAction touchAction=new TouchAction(driver);
     }
 
 
